@@ -9,9 +9,30 @@ require_once __DIR__."/templates/header.php";
     $errors = [];
 
     if (isset($_POST["sendContact"])) {
-        //@todo gérer l'envoi d'email avec affichage de message et erreurs si email non valide ou message vide
-    }
+    //@todo gérer l'envoi d'email avec affichage de message et erreurs si email non valide ou message vide
 
+
+    $email = htmlspecialchars($_POST['email']);
+    $message = htmlspecialchars($_POST['message']);
+
+    // Destinataire
+    $destinataire = "destinataire@example.com";
+
+    // Sujet de l'e-mail
+    $sujet = "Sujet de l'e-mail";
+
+    // En-têtes de l'e-mail
+    $headers = "From: expediteur@example.com\r\n";
+    $headers .= "Reply-To: expediteur@example.com\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    // Envoyer l'e-mail
+    if (mail($destinataire, $sujet, $message, $headers)) {
+        echo "L'e-mail a été envoyé avec succès.";
+    } else {
+        echo "L'envoi de l'e-mail a échoué.";
+    }
+}
 ?>
 
 <h1>Contact</h1>
